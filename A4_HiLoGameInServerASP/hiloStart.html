@@ -1,0 +1,74 @@
+<!--
+    FILE : hiloStart.html
+    PROJECT : A4 HI-LO
+    PROGRAMMER : Yujung Park
+    FIRST VERSION : 2022-10-20
+    DESCRIPTION : This application demonstrates Hi-Lo game that the player guesses numbers in a specific range until the correct number is found
+    by using server side technology of ASP.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi-Lo Game Start</title>
+    
+    <script type="text/javascript">
+
+    // FUNCTION : validateName
+    // DESCRIPTION : This function is to validate the player's name of user input
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function validateName() 
+    {
+        var nameValid = false;
+        var user = document.getElementById("name").value;
+        var charsSpaces = /[\s]/;
+
+        // clean up an error message from the previous use
+        document.getElementById("nameError").innerHTML = "";
+
+        // validation 1 -  the palyer's name is not blank
+        if ((user.trim()).length == 0)
+        {
+          document.getElementById("nameError").innerHTML = "Your name <b>cannot</b> be BLANK.";
+          document.getElementById("name").value = "";
+        }
+        // validation 2 -  it can contain any non=blank characters
+        else
+        {
+          if(user.match(charsSpaces))
+          {
+            document.getElementById("nameError").innerHTML = "Your name can contain any <b>non-blank</b> characters.";
+            document.getElementById("name").value = "";
+          }
+          else
+          {
+            nameValid=true;
+          }
+        }
+        return nameValid;
+    }
+    
+    </script>
+  </head>
+
+  <body id="body">
+    <!-- initial page: ask for the player's name -->
+      <form name="nameForm" action="hiloGameSession1.asp" onsubmit="return validateName()" method="post">
+        <table id="userNameTable">
+          <tr>
+            <td>Please enter your name</td>
+            <td><input name="name" id="name" type="text"/></td>
+            <td colspan="3" align="center"><input id="checkName" type="submit" value="submit" /></td>
+            <td><div id="nameError" style="color:red;"></div></td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+    </form>
+  </body>
+    
+</html>
+    
