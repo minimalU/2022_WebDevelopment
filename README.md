@@ -8,5 +8,6 @@ PROG2001-22F-WEB Design and Development
 | A3 | Web Zoo Server (CGI, PHP, Bootstrap) |
 | A4 | Hi-Lo number guessing game (ASP, Bootstrap) |
 | A5 | Hi-Lo number guessing game (ASP.NET, Bootstrap) |
-| A6 | Text Editor (jQuery, JSON) |
+| A6 | Developing Web Server |
+| A7 | Text Editor (jQuery, JSON) |
 | Final | Online ordering application (JavaScript, ASP.NET, AJAX, CSS) |
