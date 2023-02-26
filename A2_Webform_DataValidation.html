@@ -1,0 +1,331 @@
+<!--
+    FILE : a02.html
+    PROJECT : Registration Form
+    PROGRAMMER : Yujung Park
+    FIRST VERSION : 2022-09-21
+    DESCRIPTION : This program is an HTML form that allows the user fill in and chooses the appropriate information, 
+    and the program validates the information and submits the data to server.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SET Registration</title>
+    <style>
+        body 
+        {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        form 
+        {
+            max-width: 6000px;
+            padding: 20px;
+        }
+
+
+        div 
+        {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+
+        .error 
+        {
+            color: red;
+        }
+    </style>
+
+
+    <script>
+
+        // FUNCTION : showTypeSection
+        // DESCRIPTION : This function is to display a checklist depending on the classification of student or faculty
+        // PARAMETERS : none
+        // RETURNS : nothing
+        function showTypeSection() {
+            if (document.getElementById("memberType1").checked == true) {
+                document.getElementById("studentSection").style.display = "block";
+                document.getElementById("facultySection").style.display = "none";
+            }
+            else if (document.getElementById("memberType2").checked == true) {
+                document.getElementById("studentSection").style.display = "none";
+                document.getElementById("facultySection").style.display = "block";
+            }
+        }
+
+        // FUNCTION : resetDisplay
+        // DESCRIPTION : This function is to clean up the previously displayed information by using the reset button
+        // PARAMETERS : none
+        // RETURNS : nothing
+        function resetDisplay() {
+
+            document.getElementById("studentSection").style.display = "none";
+            document.getElementById("facultySection").style.display = "none";
+            document.getElementById("feedback").innerHTML = "";
+        }
+
+        // FUNCTION : isPostalCodeRight
+        // DESCRIPTION : This function is to check if a postal district of a forward sortation area is correct or not
+        // PARAMETERS : province    string
+        //              fsa         char
+        // RETURNS : bool
+        function isPostalCodeRight(province, fsa) {
+            if (province == "ab") {
+                if (fsa == "T") { return true; }
+            }
+            else if (province == "bc") {
+                if (fsa == "V") { return true; }
+            }
+            else if (province == "mb") {
+                if (fsa == "R") { return true; }
+            }
+            else if (province == "nb") {
+                if (fsa == "E") { return true; }
+            }
+            else if (province == "nl") {
+                if (fsa == "A") { return true; }
+            }
+            else if (province == "nt" || province == "nu") {
+                if (fsa == "X") { return true; }
+            }
+            else if (province == "ns") {
+                if (fsa == "B") { return true; }
+            }
+            else if (province == "on") {
+                if (fsa == "N" || fsa == "P" || fsa == "K" || fsa == "L") { return true; }
+            }
+            else if (province == "pe") {
+                if (fsa == "C") { return true; }
+            }
+            else if (province == "qc") {
+                if (fsa == "G" || fsa == "H" || fsa == "J" || fsa == "K") { return true; }
+            }
+            else if (province == "sk") {
+                if (fsa == "S") { return true; }
+            }
+            else if (province == "yt") {
+                if (fsa == "Y") { return true; }
+            }
+            else { return false; }
+        }
+
+        // FUNCTION : validateForm
+        // DESCRIPTION : This function is to validate the form. The function returns the boolean value whether the form submission is ok or not.
+        // PARAMETERS : nothing
+        // RETURNS : bool
+        function validateForm() {
+
+            var nameSubmission = false;
+            var addressSubmission = false;
+            var citySubmission = false;
+            var provinceSubmission = false;
+            var postalCodeSubmission = false;
+            var classSubmission = false;
+            var formSubmission = false;
+
+            var name = document.getElementById("inputName").value;
+            var address = document.getElementById("address").value;
+            var city = document.getElementById("city").value;
+            var province = document.getElementById("province").value;
+            var postalCode = document.getElementById("postal_code").value;
+            var memberType = "NONE";
+
+            var regEx4Name = /[a-z]*\s[a-z]*/i;
+            var regEx4Address = /^[0-9]*(\s)?[a-z\s]*[a-z]$/i;
+            var regEx4City = /^[a-z\s]*[a-z]$/i;
+            var regEx4PostalCode = /^\s*[A-CEGHJ-NPR-TVXY]\d[A-CEGHJ-NPR-TV-Z](\s)?\d[A-CEGHJ-NPR-TV-Z]\d$/g;
+
+            var errMsg;
+            errMsg = "Please complete all fields in the form with the correct information. <ul>";
+
+            // name validation
+            if (name == "") {
+                errMsg = errMsg + "<li>the <i>Name</i> is empty</li>";
+            }
+            else {
+                if (name == name.match(regEx4Name)) { nameSubmission = true; }
+                else { errMsg = errMsg + "<li>the <i>Name</i> Syntax: First and Last Name [e.g. John Smith]</li>"; }
+            }
+
+            // address validation
+            if (address == "") {
+                errMsg = errMsg + "<li>the <i>Street Address</i> is empty </li>";
+            }
+            else {
+                if (address.match(regEx4Address)) { addressSubmission = true; }
+                else { errMsg = errMsg + "<li>the <i>Address</i> Syntax: Number and Space and Alpha characters [e.g. 123 Any Street]</li>"; }
+            }
+
+            // city validation
+            if (city == "") {
+                errMsg = errMsg + "<li>the <i>City</i> is empty</li>";
+            }
+            else {
+                if (city.match(regEx4City)) { citySubmission = true; }
+                else { errMsg = errMsg + "<li>the <i>City</i> Syntax: Alphabetic characters and space(s) [e.g. Kitchener]</li>"; }
+            }
+
+            // province validation
+            if (province == "Empty") {
+                errMsg = errMsg + "<li>the <i>Province</i> is empty </li>";
+            }
+            else { provinceSubmission = true; }
+
+            // postal code validation
+            if (postalCode == "") {
+                errMsg = errMsg + "<li>the <i>Postal Code</i> is empty </li>";
+            }
+            else {
+                // validation for postal code formation
+                if (postalCode == postalCode.match(regEx4PostalCode)) {
+                    //see if postal code is correct for the province
+                    if (isPostalCodeRight(province, postalCode.charAt(0))) {
+                        postalCodeSubmission = true;
+                    }
+                    else {
+                        errMsg = errMsg + "<li>the <i>Postal Code</i> is not correct for the province </li>";
+                    }
+                }
+                else {
+                    errMsg = errMsg + "<li>the <i>Postal Code</i> Syntax: [e.g. N2G 4M4]</li>";
+                }
+
+            }
+
+            // update values for classification of student or faculty 
+            if (document.getElementById('memberType1').checked == true) { memberType = "student"; }
+            if (document.getElementById("memberType2").checked == true) { memberType = "faculty"; }
+
+            // classification validation
+            if (memberType == "NONE") {
+                errMsg = errMsg + "<li>the <i>Classification</i> is empty </li>";
+            }
+            else { classSubmission = true; }
+
+            // form submission is ok if all validations for form fields are true
+            if (nameSubmission == true && addressSubmission == true &&
+                citySubmission == true && provinceSubmission == true &&
+                postalCodeSubmission == true && classSubmission == true) {
+                document.getElementById("feedback").innerHTML = "THANK YOU!!";
+                formSubmission = true;
+            }
+            else {
+                errMsg = errMsg + "</ul>";
+                document.getElementById("feedback").innerHTML = errMsg;
+                formSubmission = false;
+            }
+            return formSubmission;
+        }
+
+    </script>
+</head>
+
+
+<body>
+    <form name="formSet" id="form" action="testRequest.asp" method="GET" onsubmit="return validateForm();">
+        <h1> SET Registration </h1>
+        <!-- Name -->
+        <div>
+            <label for="inputName"> First and Last Name: </label>
+            <input type="text" name="inputName" id="inputName">
+        </div>
+        <!-- Address -->
+        <div>
+            <label for="address"> Street Address: </label>
+            <input type="text" name="address" id="address">
+        </div>
+        <div>
+            <label for="city"> City: </label>
+            <input type="text" name="city" id="city">
+        </div>
+        <!-- Province -->
+        <div>
+            <label for="province"> Province: </label>
+            <select name="province" id="province">
+                <option value="Empty"></option>
+                <option value="ab">Alberta</option>
+                <option value="bc">British Columbia</option>
+                <option value="mb">Manitoba</option>
+                <option value="nb">New Brunswick</option>
+                <option value="nl">Newfoundland and Labrador</option>
+                <option value="nt">Northwest Territories</option>
+                <option value="ns">Nova Scotia</option>
+                <option value="nu">Nunavut</option>
+                <option value="on">Ontario</option>
+                <option value="pe">Prince Edward Island</option>
+                <option value="qc">Quebec</option>
+                <option value="sk">Saskatchewan</option>
+                <option value="yt">Yukon</option>
+            </select>
+        </div>
+        <!-- Postal Code -->
+        <div>
+            <label for="postal_code"> Postal Code: </label>
+            <input type="text" name="postal_code" id="postal_code">
+        </div>
+        <!-- Student or Faculty -->
+        <div>
+            <fieldset>
+                <legend>Classification</legend>
+                <label>
+                    <input type="radio" name="memberType" id="memberType1" value="student" onclick="showTypeSection()" /> Student
+                    <input type="radio" name="memberType" id="memberType2" value="faculty" onclick="showTypeSection()" /> Faculty
+                </label>
+                <!-- Faculty -->
+                <div id="facultySection" style="display:none">
+                    <fieldset>
+                        <legend>Faculty: please select all that apply to you</legend>
+                        <div>
+                            <input type="checkbox" id="engineering" name="userChoice" value="engineering" />
+                            <label for="engineering">Teach in Engineering</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="car" name="userChoice" value="car" />
+                            <label for="car">Drive Car to Work</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="lunch" name="userChoice" value="lunch" />
+                            <label for="lunch">Bring Lunch</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Student -->
+                <div>
+                    <div id="studentSection" style="display:none">
+                        <fieldset>
+                            <legend>Student: please select all that apply to you</legend>
+                            <div>
+                                <input type="checkbox" id="siit" name="userChoice" value="siit" />
+                                <label for="siit">Study in Information Technology</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="laptop" name="userChoice" value="laptop" />
+                                <label for="laptop">Own a Laptop Computer</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="bus" name="userChoice" value="bus" />
+                                <label for="bus">Take Bus to School</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <!-- Register or Clear Form -->
+        <div>
+            <input type="submit" id="submit" value="Register" />
+            <input type="reset" id="reset" value="Clear Form" onclick="resetDisplay()" />
+        </div>
+        <!-- User feedbacks -->
+        <div id="feedback" style="color: orangered; display:block"></div>
+
+    </form>
+
+</body>
+</html>
