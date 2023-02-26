@@ -1,0 +1,8 @@
+<h3>KOMODO DRAGON</h3>
+<p>The Komodo dragon is the largest and heaviest of the lizards, well muscled, and covered with non-overlapping scales that give its surface a granular effect. These scales are a drab greyish-black colour. The skin beneath is a multi-coloured mixture of brown, yellow, greyish-red and black and is clearly visible between the scales. The head and the tail are blackish-grey; the belly exhibits hard bony scales and is also grey. Those on the nape of the neck are raised and bony; on the ridge and along the length of the tail, they form a short, spiky fringe. The scales around the anus are spiny and their arrangement is helpful in identifying male from female. As well, the males are larger and bulkier. Otherwise, they are dimorphic.</p>
+
+<ul>
+<li>Conservation Status: ENDANGERED</li>
+<li>Weight: Males average 100 kg to 135 kg. Females average 100 kg.</li>
+<li>Length: Males average 3.5 m. Females are slightly smaller.</li>
+</ul>

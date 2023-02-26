@@ -1,0 +1,9 @@
+<h3>ALDABRA TORTOISE</h3>
+<p>Aldabra tortoises are one of the largest species of tortoise in the world. Males are considerably larger than females and have longer, thicker tails. The male's carapace (upper shell) can measure 4 feet (1.22 meters) in length and they can weigh up to 550 pounds (250 kilograms). The female's carapace can measure 3 feet (91 centimeters) in length and can weigh 350 pounds (159 kilograms). They are dark gray to black in color with a high domed shaped carapace. They have long necks, which helps with gathering food up to a meter from the ground. Aldabra tortoises have stocky, heavily scaled legs to support their heavy body. The hind legs are cylindrical and columnar like those of an elephant. The toes are short and two-jointed. The head is relatively small, pointed and covered by scales.
+</p>
+
+<ul>
+<li>Conservation Status: VULNERABLE</li>
+<li>Weight: Males weigh up to 250 kg. Females 159 kg.</li>
+<li>Length: Males average 1.22 m. Females average 0.91 m.</li>
+</ul>

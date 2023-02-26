@@ -1,0 +1,8 @@
+<h3>SUMATRAN TIGER</h3>
+<p>Sumatran tigers are the smallest of the living subspecies. They are a darker orange than other tigers, ranging from reddish-yellow, through to a deep orange, and on into reddish-brown. They have more stripes than other tigers. The black vertical stripes are narrower and a little closer to each other sometimes over-lapping. Striping occurs on the legs. The tail is usually slightly shorter than half of the body length. The chest, muzzle, throat, stomach and insides of limbs are white to cream in colour. The back of each ear is black with a central white spot. The neck has a short mane. They have yellow eyes with binocular vision. The muzzle is broad with large canine teeth. The whiskers are long.</p>
+
+<ul>
+<li>Conservation Status: CRITICALLY ENDANGERED</li>
+<li>Weight: Males average 100 kg to 140 kg. Females average 75 kg to 110 kg.</li>
+<li>Length: Hand and Body 1.8 - 2.5 m. Tail 0.5 - 0.75m.</li>
+</ul>

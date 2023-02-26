@@ -1,0 +1,8 @@
+<h3>BACTRIAN CAMEL</h3>
+<p>The most noticeable feature of the Bactrian camel is the two humps. Camels with one hump are dromedaries. Bactrians have thick, long shaggy coats during cold weather, which they shed when it gets warmer. This long wooly coat varies in colour from dark brown to sandy beige. Long hair hangs from the neck and gives the appearance of a beard. This mane of long hair on the neck and throat has hairs up to 25 cm long.</p>
+
+<ul>
+<li>Conservation Status: CRITICALLY ENDANGERED</li>
+<li>Weight: average 816 kg</li>
+<li>Length: 2.13 m</li>
+</ul>

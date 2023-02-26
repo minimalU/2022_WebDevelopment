@@ -1,0 +1,173 @@
+<!--
+    FILE : php-zoo.html
+    PROJECT : A-03 ANIMAL-SERVE
+    PROGRAMMER : Yujung Park
+    FIRST VERSION : 2022-10-09
+    DESCRIPTION : This program is a web site of ZOO, the user enters their name and choose animal from menu,
+    and PHP server side will display the response page with the picture and text information of the animal.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP ZOO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    
+    <script>
+    
+    var whichDiv = 1;
+    var name = "";
+    var animal = "";
+    var nameValid = false;
+    var animalValid = false;
+    var formSubmission = false;
+
+    // FUNCTION : nextDiv
+    // DESCRIPTION : This function is to change UI of application 
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function nextDiv()
+    {
+      // hide section1, show section2 
+      if(whichDiv == 1)
+      {
+        document.getElementById("section1").style.display="none";
+        document.getElementById("section2").style.display="block";
+        document.getElementById("animalPrompt").innerHTML = "Hey " + name + "! Please choose an animal";
+        document.querySelector("body").style.backgroundColor = 'transparent';
+      }
+      else
+      {
+        whichDiv = 1;
+      }
+    }
+
+    // FUNCTION : validateName
+    // DESCRIPTION : This function is to validate the user name
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function validateName() 
+    {
+        var userName = document.getElementById("userName").value;
+        var regEx4Name = /[\W]*/; //matches any character
+
+        // clean up an error message from the previous use
+        document.getElementById("nameError").innerHTML = "";
+
+        // validation 1 -  not blank
+        if ((userName.trim()).length == 0)
+        {
+          document.getElementById("nameError").innerHTML = "Your name <b>cannot</b> be BLANK.";
+          document.getElementById("userName").value = "";
+        }
+        // validation 2 -  it can contain any non=blank characters
+        else
+        {
+            if(userName.match(regEx4Name))
+            {
+                name = document.getElementById("userName").value;
+                nameValid=true;
+            }
+            else
+            {
+                document.getElementById("nameError").innerHTML = "Your name can contain any <b>non-blank</b> characters.";
+                document.getElementById("userName").value = "";
+            }
+        }
+
+        // move onto the next UI screen of the application
+        if(nameValid==true)
+        {
+          name = userName;
+          nextDiv();
+        }
+    }
+
+    function validateSelection() 
+    {
+        var animal = document.getElementById("animal").value;
+
+        // selection validation
+        if (animal == "Empty") 
+        {
+            document.getElementById("selectionError").innerHTML = "Animal should be chosen";
+        }
+        else 
+        { 
+            animalValid = true;
+            animal = document.getElementById("animal").value;
+            document.getElementById("selectionError").innerHTML = ""; 
+            document.zooForm.secretUser.value = name;
+             //document.getElementById("secretUser").value = name;
+        }
+    }
+
+    function formValidation()
+    {
+        // form submission is ok if all validations for form fields are true
+        if (nameValid == true && animalValid == true) 
+        {
+            formSubmission = true;
+        }
+        else 
+        {
+            formSubmission = false;
+        }
+            return formSubmission;
+    }
+
+    </script>
+    
+</head>
+
+<body>
+    <div class="container-lg">
+        <form name="zooForm" action="animals.php" method="POST" onsubmit="return formValidation()"> 
+            <h1 class="text-bg-success p-3" >WELCOME TO PHP ZOO</h1>
+            <div id="section1" class = "p-3">
+                <table id="userNameTable">
+                    <tr>
+                        <td class="p-2">Please enter your name</td>
+                        <td class="p-2"><input name="user" id="userName" type="text" class="form-control" required/></td>
+                        <td class="p-2" colspan="3" align="center"> <input type="button" value="Submit" class= "btn btn-success" onclick="validateName();" /> </td>
+                        <td class="p-2"><div id="nameError" style="color:orangered;"></div></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id="section2" style="display:none" class = "p-3">
+                <table id="userNameTable">
+                    <tr>
+                        <td id="animalPrompt"> </td>
+                        <td class="p-2">
+                            <select name="animal" id="animal" class="form-select-sm p-2">
+                                <option value="Empty"></option>
+                                <option value="otter">North American River Otter</option>
+                                <option value="tortoise">Aldabra tortoise</option>
+                                <option value="dragon">Komodo dragon</option>
+                                <option value="bison">Wood bison</option>
+                                <option value="camel">Bactrian camel</option>
+                                <option value="tiger">Sumantran Tiger</option>
+                            </select>
+                        </td>
+                        <td><input type="hidden" id="secretUser" name="secretUser" /></td>
+                        <td colspan="3" align="center" class="p-2">
+                            <input type="submit" value="Submit" class= "btn btn-success" onclick="validateSelection();" />
+                        </td>
+                        <td> <div id="selectionError" style="color:orangered;"></div> </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        <div>
+            <div id="foarmFeedback" style="color: orangered; display:block"></div>
+        </div>
+        </form>
+    </div>
+</body>
+
+</html>
