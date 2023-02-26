@@ -1,0 +1,50 @@
+body {
+background-color: rgb(37, 169, 192);
+color: white;
+font-size: 21px;
+}
+
+p {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+
+}
+
+.titlePizza {
+font-family: Arial, Helvetica, sans-serif;
+background: rgb(255, 132, 0);
+width: 300px;
+text-align: center;
+margin: auto;
+font-size: 35px;
+}
+
+.btnSubmit {
+    text-align: center;
+    margin: auto;
+    color:rgb(255, 132, 0);
+    font-size: 30px;
+}
+
+.textboxDiv {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+    font-weight: bold;
+}
+
+.formDiv {
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+}
+
+.checkboxCon1 {
+    grid-template-columns: repeat(auto-fit);
+    display: inline-block;
+    text-align: left;
+    margin: auto;
+    width: auto;
+    height: auto;
+    border: 3px solid white;
+    padding: 10px;
+}
