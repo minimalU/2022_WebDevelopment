@@ -1,0 +1,269 @@
+<!--
+    FILE : a01.html
+    PROJECT : assignment
+    PROGRAMMER : Yujung Park
+    FIRST VERSION : 2022-09-08
+    DESCRIPTION : This application demonstrates Hi-Lo game that the player guesses numbers in a specific range until the correct number is found.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi-Lo game</title>
+    
+    <script type="text/javascript">
+
+    var whichDiv = 1;
+    var name = "";
+    var min = 1;
+    const kMax = Number.MAX_SAFE_INTEGER;
+    var maxGuessNum = 0;
+    var randomInt = 0;
+    
+    // FUNCTION : nextDiv
+    // DESCRIPTION : This function is to change UI of application 
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function nextDiv()
+    {
+      // hide section1, show section2 
+      if(whichDiv == 1)
+      {
+        document.getElementById("section1").style.display="none";
+        document.getElementById("section2").style.display="block";
+        document.getElementById("section3").style.display="none";
+        document.getElementById("section4").style.display="none";
+        document.getElementById("maxNum").innerHTML = "Hey " + name + "! Please enter the maximum guess number for the game";
+        document.querySelector("body").style.backgroundColor = 'transparent';
+      }
+      // hide section2, show section3
+      else if(whichDiv == 2)
+      {  
+        document.getElementById("section2").style.display="none";
+        document.getElementById("section3").style.display="block";
+        document.getElementById("guessNum").innerHTML = "Hey " + name + "!! Please enter your guess number";
+        document.querySelector("body").style.backgroundColor = 'transparent';
+      }
+      // hide section 3, show section4
+	    else if(whichDiv == 3)
+      {
+		    document.getElementById("section3").style.display="none";
+		    document.getElementById("section4").style.display="block";
+        document.getElementById("youWin").innerHTML = 
+        "<h1>You Win!! You guessed the number!!</h1> <input id='backToSection2' type='button' value='Play Again' onclick='resetGame(); nextDiv()' />";
+        document.querySelector("body").style.backgroundColor = 'magenta';
+        whichDiv = 1;
+      }
+      else
+      {
+        whichDiv = 1;
+      }
+    }
+
+    // FUNCTION : validateName
+    // DESCRIPTION : This function is to validate the player's name of user input
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function validateName() 
+    {
+        var nameValid = false;
+        var userName = document.getElementById("userName").value;
+        var charsSpaces = /[\s]/;
+
+        // clean up an error message from the previous use
+        document.getElementById("nameError").innerHTML = "";
+
+        // validation 1 -  the palyer's name is not blank
+        if ((userName.trim()).length == 0)
+        {
+          document.getElementById("nameError").innerHTML = "Your name <b>cannot</b> be BLANK.";
+          document.getElementById("userName").value = "";
+        }
+        // validation 2 -  it can contain any non=blank characters
+        else
+        {
+          if(userName.match(charsSpaces))
+          {
+            console.log(userName.match(charsSpaces));
+            document.getElementById("nameError").innerHTML = "Your name can contain any <b>non-blank</b> characters.";
+            document.getElementById("userName").value = "";
+          }
+          else
+          {
+            nameValid=true;
+          }
+        }
+
+        // move onto the next UI screen of the application
+        if(nameValid==true)
+        {
+          name = userName;
+          nextDiv();
+        }
+    }
+    
+    // FUNCTION : validateMaxNum
+    // DESCRIPTION : This function is to validate the maximum guess number of user input
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function validateMaxNum() 
+    {
+        // get input value with id="maxNum"
+        var numberValid = false;
+        const maxNumInput = document.querySelector('#maxNumInput').value;
+        
+        // clean up the UI from the previous use
+        document.getElementById("maxNumError").innerHTML = "";
+        
+        // condition for a number input
+        if (isNaN(maxNumInput) === false)
+        {
+          // condition for out of range
+          if (maxNumInput < min || maxNumInput > kMax)
+          {
+            document.getElementById("maxNumError").innerHTML = "Invalid input: Input value is out of range. Please choose your maximum guess number between " + min + " and " + kMax;
+            document.querySelector('#maxNum').value = "";
+          }
+          else
+          {
+            numberValid=true;
+            maxGuessNum = maxNumInput;
+            randomInt = Math.floor(Math.random() * maxNumInput +1);
+          }
+          
+          // move onto the next UI screen of the application
+          if(numberValid==true)
+          {
+            whichDiv++;
+            nextDiv();
+          }
+        }         
+        // condition for not a number input
+        else
+        {
+          document.getElementById("maxNumError").innerHTML = "Invalid input: Input value is not a number. Please choose your maximum guess number between " + min + " and " + kMax;
+        }
+
+        // clean up the input field from the previous use
+        document.getElementById('maxNumInput').value = '';
+    }
+
+    // FUNCTION : validateGuessNum
+    // DESCRIPTION : This function is to validate the guess number of user input
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function validateGuessNum()
+    {
+      const numberEntered = Number(document.querySelector('#guessNumInput').value);
+
+      // clean up the UI from the previous use
+      document.getElementById("allowableRange").innerHTML = "";
+
+      // condition for a number input
+      if (isNaN(numberEntered) === false)
+      {
+        // condition for out of range
+        if (numberEntered > maxGuessNum || numberEntered < min)
+        {
+          document.getElementById('allowableRange').textContent = "Outside of the allowable range: Your allowable guessing range is any value between " + min + " and " + maxGuessNum;
+        }
+        else
+        {
+          // range condition for higher input than random integer
+          if (numberEntered > randomInt)
+          {
+            maxGuessNum = numberEntered;
+            document.getElementById('allowableRange').textContent = "Your allowable guessing range is any value between " + min + " and " + maxGuessNum;
+          }
+          // range condition for lower input than random integer
+          else if ( numberEntered < randomInt)
+          {
+            min = numberEntered;
+            document.getElementById('allowableRange').textContent = "Your allowable guessing range is any value between " + min + " and " + maxGuessNum;
+          }
+          // move onto the next UI screen of the application
+          else
+          {
+            whichDiv++;
+            nextDiv();
+          }
+
+        }
+      }
+      // condition for not a number input
+      else
+      {
+        document.getElementById('allowableRange').textContent = "Invalid input: Input value is not a number. Your allowable guessing range is any value between " + min + " and " + maxGuessNum;
+      }
+
+      // clean up the input field from the previous use
+      document.getElementById('guessNumInput').value = '';
+    }
+
+    // FUNCTION : resetGame
+    // DESCRIPTION : This function is to reset the minimum and maximum guess number for replaying game
+    // PARAMETERS : none
+    // RETURNS : nothing
+    function resetGame()
+    {
+      min = 1;
+      maxGuessNum = 0;
+    }
+
+    </script>
+  </head>
+
+  <body id="body">
+
+    <!-- initial page: ask for the player's name -->    
+    <div id="section1">
+      <table id="userNameTable">
+        <tr>
+          <td>Please enter your name</td>
+          <td><input name="namePrompt" id="userName" type="text"/></td>
+          <td colspan="3" align="center"><input id="checkName" type="button" value="Submit" onclick="validateName();" /></td>
+          <td><div id="nameError" style="color:red;"></div></td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- maximum guess number page : ask for maximum guess number -->
+    <div id="section2" style="display:none">
+      <table id="maxNumber">
+        <tr>
+          <td id="maxNum"></td>
+          <td><input name="maxNumPrompt" id="maxNumInput" type="text"/></td>
+          <td colspan="3" align="center"><input id="checkMaxNum" type="button" value="Submit" onclick="validateMaxNum();" /></td>
+          <td><div id="maxNumError" style="color:red;"></div></td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Hi-Lo Application Page  -->
+    <div id="section3" style="display:none">
+      <table id="guessGame">
+        <div>Your allowable guessing range is any value</div>
+        <tr>
+          <td id="guessNum"></td>
+          <td><input name="guessNumPrompt" id="guessNumInput" type="text"/></td>
+          <td colspan="3" align="center"><input id="makeThisGuess" type="button" value="Make This Guess" onclick="validateGuessNum();" /></td>
+          <td>&nbsp;</td>
+          <td><div id="allowableRange" style="color:red;"></div></td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- final screen of UI -->
+    <div id="section4" style="display:none" align = "center">
+      <div id="youWin"></div>
+    </div>
+
+  </body>
+    
+</html>
+    
